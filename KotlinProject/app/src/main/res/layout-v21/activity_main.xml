@@ -26,44 +26,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        android:src="@drawable/india_map_pink"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/indiaMapIcon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/iconBackgroundColor"
-        android:clickable="true"
-        app:layout_constraintEnd_toStartOf="@+id/randomFAB"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/indiaFAB"
-        app:srcCompat="@drawable/india_map_blue"
-        tools:layout_editor_absoluteY="651dp" />
+        app:srcCompat="@drawable/india_map_pink"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/indiaFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:layout_marginEnd="25dp"
         android:clickable="true"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/iconBackgroundColor"
+        app:layout_constraintBottom_toTopOf="@+id/stateFAB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/india_map_blue"
-        tools:layout_editor_absoluteY="650dp" />
+        android:focusable="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/stateFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/iconBackgroundColor"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/randomFAB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indiaFAB"
+        app:srcCompat="@drawable/india_map_blue"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/randomFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:clickable="true"
+        android:backgroundTint="@color/iconBackgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
+        app:layout_constraintTop_toBottomOf="@+id/stateFAB"
         app:srcCompat="@drawable/india_map_blue"
-        tools:layout_editor_absoluteY="650dp" />
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

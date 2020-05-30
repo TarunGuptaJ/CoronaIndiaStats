@@ -1,4 +1,4 @@
-package com.example.kotlinprojectgroup
+package com.example.testproject
 
 import org.junit.Test
 
