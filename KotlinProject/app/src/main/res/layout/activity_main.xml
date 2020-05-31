@@ -41,7 +41,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/indiaFAB"
         app:srcCompat="@drawable/india_map_blue"
-        tools:layout_editor_absoluteY="651dp" />
+        tools:layout_editor_absoluteY="651dp"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/indiaFAB"
@@ -52,7 +53,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/india_map_blue"
-        tools:layout_editor_absoluteY="650dp" />
+        tools:layout_editor_absoluteY="650dp"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/randomFAB"
@@ -63,7 +65,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
         app:srcCompat="@drawable/india_map_blue"
-        tools:layout_editor_absoluteY="650dp" />
+        tools:layout_editor_absoluteY="650dp"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
