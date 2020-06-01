@@ -49,7 +49,7 @@
             fab:fab_colorPressed="#88EDEA"
             fab:fab_colorRipple="#83F8EB"
             fab:fab_size="normal"
-            fab:fab_label="Welcome" />
+            fab:fab_label="State" />
 
         <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
         <!--        android:id="@+id/randomFAB"-->
