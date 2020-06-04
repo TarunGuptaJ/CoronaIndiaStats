@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_title.xml",
+        "source": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/src/main/res/layout/fragment_title.xml"
+    },
+    {
+        "merged": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_game_over.xml",
+        "source": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/src/main/res/layout/fragment_game_over.xml"
+    },
+    {
+        "merged": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_game.xml",
+        "source": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/src/main/res/layout/fragment_game.xml"
+    },
+    {
+        "merged": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_game_won.xml",
+        "source": "/home/kaustubh/Stuff/KotlinProject/AndroidTrivia-Starter/app/src/main/res/layout/fragment_game_won.xml"
+    }
+]
