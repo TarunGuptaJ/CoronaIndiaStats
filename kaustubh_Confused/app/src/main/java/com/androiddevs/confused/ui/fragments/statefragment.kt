@@ -1,7 +1,11 @@
 package com.androiddevs.confused.ui.fragments
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.nfc.Tag
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +13,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.androiddevs.confused.R
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
+import com.androiddevs.confused.ui.*
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URL
 
 
 lateinit var stateText: TextView
@@ -32,64 +38,79 @@ class statefragment : Fragment() {
         stateText = view.findViewById(R.id.state_text)
         stateLoading = view.findViewById(R.id.stateProgressBar)
     }
-
 }
 
-@Suppress("UNUSED_VARIABLE")
 private class stateTest : AsyncTask<Void, Void, Void>() {
 
     var displayText: String = ""
     lateinit var singleParsed: String
-    lateinit var finalParsed: String
-    lateinit var json : String
-
+    var finalParsed: String = ""
+    lateinit var json: String
+    val url: URL = URL("https://api.covid19india.org/v2/")
+    var districts : MutableList<List<districtData>>? = mutableListOf()
+    var allStates: List<State>? = null
+    var api : Api? = null
+    var call : Call<List<State>>? = null
 
     override fun doInBackground(vararg params: Void?): Void? {
 
-        json = Jsoup
-            .connect("https://api.covid19india.org/v2/state_district_wise.json")
-            .ignoreContentType(true)
-            .execute()
-            .body()
-
-
-
+        val retrofit: Retrofit =
+            Retrofit.Builder()
+                .baseUrl("https://api.covid19india.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        api = retrofit.create(Api::class.java)
+        call = api?.getState()
 
         return null
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onPostExecute(result: Void?) {
         super.onPostExecute(result)
-        stateText.text = json
-        stateLoading.visibility = View.GONE
+        Log.d(TAG, "here state 0 is : " + allStates?.get(0)?.state)
+        call?.enqueue(object : Callback<List<State>> {
+            override fun onFailure(call: Call<List<State>>, t: Throwable) {
+                Log.e(TAG, "ERROR : " + t.message)
+            }
+
+            override fun onResponse(call: Call<List<State>>, response: Response<List<State>>) {
+                Log.d(TAG, "code is : " + response.code().toString())
+                allStates = response.body()
+                districts = getDistrictData(allStates, districts)
+                Log.d(TAG, "districts is : $districts")
+                stateLoading.visibility = View.GONE
+                displayInfo(allStates, districts)
+            }
+
+            private fun displayInfo(
+                allStates: List<State>?,
+                districts: MutableList<List<districtData>>?
+            ) {
+                for (i in 0 until allStates?.size!!) {
+                    singleParsed = "State: " + allStates?.get(i)?.state + "\n\n"
+                    for (j in 0 until districts?.get(i)?.size!!) {
+                        singleParsed += "District: " + districts?.get(i)?.get(j).district + "\n" +
+                                        "Active: " + districts?.get(i)?.get(j).active + "\n" +
+                                        "Confirmed: " + districts?.get(i)?.get(j).confirmed + "\n" +
+                                        "Deceased: " + districts?.get(i)?.get(j).deceased + "\n" +
+                                        "Recovered: " + districts?.get(i)?.get(j).recovered + "\n\n"
+                    }
+                    finalParsed += singleParsed + "\n"
+                }
+                stateText.text = finalParsed
+            }
+
+            private fun getDistrictData(
+                allStates: List<State>?,
+                districts: MutableList<List<districtData>>?
+            ): MutableList<List<districtData>>? {
+                for (i in 0 until allStates?.size!!) {
+                    districts?.add(allStates[i].districtData)
+                }
+                return districts
+            }
+        })
     }
 
 }
-
-////        val document : Document
-//        val url : URL = URL("https://api.covid19india.org/v2/state_district_wise.json")
-//        val httpUrlConn : HttpURLConnection = url.openConnection() as HttpURLConnection
-//        val inputStream : InputStream = httpUrlConn.getInputStream()
-//        val reader : InputStreamReader = InputStreamReader(inputStream)
-//        val bufferedReader : BufferedReader = BufferedReader(reader)
-//        var line : String? = ""
-////        while (line != null)
-//
-//        for (i in 1..100) {
-//            line = bufferedReader.readLine()
-//            displayText += line
-//        }
-//
-//        var teststr : String = "[{}]"
-////        var jsonObj_temp : JSONObject = teststr as JSONObject
-//        var jsonArr : JSONArray = [{ val s = "name":"kaustubh"}] as JSONArray
-////        finalParsed = jsonArr.toString()
-////        for (i in 0 until jsonArr.length()) {
-////            var jsonObj : JSONObject = jsonArr.getJSONObject(i)
-////            var district : district
-////            var distData : JSONObject = jsonObj.getJSONObject("districtData")
-////            singleParsed =  "district:" + jsonObj.get("district") + "\n" +
-////                            "active:" + jsonObj.get("active") + "\n" +
-////                            "confirmed:" + jsonObj.get("confirmed") +"\n"
-////            finalParsed += singleParsed + "\n"
-////        }

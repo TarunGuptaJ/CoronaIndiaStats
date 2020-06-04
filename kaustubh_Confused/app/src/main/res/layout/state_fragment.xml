@@ -5,21 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+<!--    <ScrollView-->
+<!--        android:id="@+id/scrollViewText"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/stateListItems"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/state_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="15sp" />-->
+
+<!--    </ScrollView>-->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/stateListItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </androidx.recyclerview.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/state_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="10sp" />
-
-    </ScrollView>
 
     <ProgressBar
         android:id="@+id/stateProgressBar"
@@ -31,5 +44,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
