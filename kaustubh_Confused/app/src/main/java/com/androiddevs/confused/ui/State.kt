@@ -6,5 +6,5 @@ data class State (
 
 	@SerializedName("state") val state : String,
 	@SerializedName("statecode") val statecode : String,
-	@SerializedName("districtData") val districtData : List<districtData>
+	@SerializedName("districtData") val districtData : List<DistrictData>
 )

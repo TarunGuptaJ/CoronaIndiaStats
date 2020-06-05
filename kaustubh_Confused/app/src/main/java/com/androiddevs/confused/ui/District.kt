@@ -2,7 +2,7 @@ package com.androiddevs.confused.ui
 
 import com.google.gson.annotations.SerializedName
 
-data class districtData (
+data class DistrictData (
 	@SerializedName("district") val district : String,
 	@SerializedName("notes") val notes : String,
 	@SerializedName("active") val active : Int,
