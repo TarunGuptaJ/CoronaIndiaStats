@@ -106,7 +106,7 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
                 districts: MutableList<List<DistrictData>>?
             ): MutableList<List<DistrictData>>? {
                 for (i in 0 until allStates?.size!!) {
-                    districts?.add(allStates[i].districtData)
+                    districts?.add(allStates?.get(i).districtData)
                 }
                 return districts
             }

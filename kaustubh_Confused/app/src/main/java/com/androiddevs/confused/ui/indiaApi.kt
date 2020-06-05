@@ -5,7 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 public interface indiaApi {
-    @GET("data.json")
-//    @GET("eeaebee")
+    @GET("v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true")
     fun getFullData() : Call<AllData>
 }

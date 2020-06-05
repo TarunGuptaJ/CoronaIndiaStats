@@ -13,16 +13,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.androiddevs.confused.R
 import com.androiddevs.confused.ui.AllData
+import com.androiddevs.confused.ui.RegionData
 import com.androiddevs.confused.ui.indiaApi
-import okhttp3.ConnectionSpec
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 
 private lateinit var indiaText: TextView
@@ -49,27 +46,20 @@ class indiafragment : Fragment() {
 
 private class allInfo : AsyncTask<Void, Void, Void>() {
 
-    lateinit var singleParsed: String
+    var singleParsed: String = ""
     var finalParsed: String = ""
     var ind_api: indiaApi? = null
     var ind_call: Call<AllData>? = null
     var allData: AllData? = null
+    var allStates : MutableList<RegionData>? = mutableListOf()
 //    "https://api.covid19india.org/"
-//    "https://extendsclass.com/api/json-storage/bin/"
 //    "https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true"
 
     override fun doInBackground(vararg params: Void?): Void? {
 
-        val okHttpClient = OkHttpClient.Builder()
-            .callTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-
-
         val retrofit: Retrofit =
             Retrofit.Builder()
-                .baseUrl("https://api.covid19india.org/")
+                .baseUrl("https://api.apify.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -94,7 +84,38 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
             override fun onResponse(call: Call<AllData>, response: Response<AllData>) {
                 Log.d(TAG, "code is : " + response.code().toString())
                 allData = response.body()
-                indiaText.text = allData.toString()
+                allStates = getStates(allData, allStates)
+                indiaLoading.visibility = View.GONE
+                displayInfo(allData, allStates)
+            }
+
+            private fun displayInfo(allData: AllData?, allStates: MutableList<RegionData>?) {
+                finalParsed =  "India Data:" + "\n\n" +
+                                "Confirmed: " + allData?.confirmed + "\n" +
+                                "Active: " + allData?.active + "\n" +
+                                "Deceased: " + allData?.deaths + "\n" +
+                                "Recovered: " + allData?.recovered + "\n\n" + "State Data:" + "\n"
+                for (i in 0 until allStates?.size!!) {
+                    var stateObj = allStates?.get(i)
+                    singleParsed += "\n" + "State: " + stateObj.state + "\n" +
+                                    "Confirmed: " + stateObj.state + "\n" +
+                                    "Active: " + stateObj.active + "\n" +
+                                    "Deceased: " + stateObj.deceased + "\n" +
+                                    "Recovered: " + stateObj.recovered + "\n"
+
+                    finalParsed += singleParsed + "\n"
+                }
+                indiaText.text = finalParsed
+            }
+
+            private fun getStates(
+                allData: AllData?,
+                allStates: MutableList<RegionData>?
+            ): MutableList<RegionData>? {
+                for (i in 0 until allData?.regionData?.size!!) {
+                    allStates?.add(allData?.regionData?.get(i))
+                }
+                return allStates
             }
 
         })
