@@ -56,6 +56,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
     var allData: AllData? = null
 //    "https://api.covid19india.org/"
 //    "https://extendsclass.com/api/json-storage/bin/"
+//    "https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true"
 
     override fun doInBackground(vararg params: Void?): Void? {
 
@@ -69,11 +70,11 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
         val retrofit: Retrofit =
             Retrofit.Builder()
                 .baseUrl("https://api.covid19india.org/")
-                .client(okHttpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
         ind_api = retrofit.create(indiaApi::class.java)
+        ind_call = ind_api?.getFullData()
 
         return null
     }
@@ -82,11 +83,10 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
     override fun onPostExecute(result: Void?) {
         super.onPostExecute(result)
 
-        ind_call = ind_api?.getFullData()
-
         ind_call?.enqueue(object : Callback<AllData> {
             override fun onFailure(call: Call<AllData>, t: Throwable) {
                 Log.e(TAG, "ERROR : " + t.message)
+                Log.e(TAG, "ERROR : $call")
                 indiaLoading.visibility = View.GONE
                 indiaText.text = "No internet. Please retry."
             }
