@@ -28,6 +28,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
@@ -81,4 +83,8 @@ dependencies {
 
     // JSOUP
     implementation 'org.jsoup:jsoup:1.11.1'
+
+    // Table View
+    implementation 'com.evrencoskun.library:tableview:0.8.9.2'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }

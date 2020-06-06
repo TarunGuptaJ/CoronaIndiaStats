@@ -97,8 +97,8 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                                 "Recovered: " + allData?.recovered + "\n\n" + "State Data:" + "\n"
                 for (i in 0 until allStates?.size!!) {
                     var stateObj = allStates?.get(i)
-                    singleParsed += "\n" + "State: " + stateObj.state + "\n" +
-                                    "Confirmed: " + stateObj.state + "\n" +
+                    singleParsed = "\n" + "State: " + stateObj.state + "\n" +
+                                    "Confirmed: " + stateObj.confirmed + "\n" +
                                     "Active: " + stateObj.active + "\n" +
                                     "Deceased: " + stateObj.deceased + "\n" +
                                     "Recovered: " + stateObj.recovered + "\n"
