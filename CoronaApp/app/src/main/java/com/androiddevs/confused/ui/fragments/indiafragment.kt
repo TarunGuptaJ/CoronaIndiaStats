@@ -90,11 +90,13 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
             }
 
             private fun displayInfo(allData: AllData?, allStates: MutableList<RegionData>?) {
-                finalParsed =  "India Data:" + "\n\n" +
+                finalParsed =  "India Data:" + "\n" +
                                 "Confirmed: " + allData?.confirmed + "\n" +
                                 "Active: " + allData?.active + "\n" +
                                 "Deceased: " + allData?.deaths + "\n" +
-                                "Recovered: " + allData?.recovered + "\n\n" + "State Data:" + "\n"
+                                "Recovered: " + allData?.recovered + "\n" +
+                                "Last Updates: " + allData?.dateLastModified +
+                                "\n\n" + "State Data:"
                 for (i in 0 until allStates?.size!!) {
                     var stateObj = allStates?.get(i)
                     singleParsed = "\n" + "State: " + stateObj.state + "\n" +
