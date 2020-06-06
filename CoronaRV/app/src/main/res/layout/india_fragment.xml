@@ -5,26 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--    <TextView-->
+<!--        android:id="@+id/india_text"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/listOfStatesInIndiaRV"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        />-->
+<!--    </ScrollView>-->
+
 
     <TextView
         android:id="@+id/error_msg"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_contentaddsta"
+        android:layout_height="wrap_content"
         android:textSize="15sp"
         android:layout_margin="50dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/indiaFragSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:iconifiedByDefault="true"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/listOfStatesInIndiaRV"
+        app:queryHint="State name here" />
+
+
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listofstatesrv"
+        android:id="@+id/listOfStatesInIndiaRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/indiaFragSearch" />
 
     <ProgressBar
         android:id="@+id/indiaProgressBar"

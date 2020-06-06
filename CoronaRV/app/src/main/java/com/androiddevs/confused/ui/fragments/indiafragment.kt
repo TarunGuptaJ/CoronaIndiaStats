@@ -6,11 +6,9 @@ import android.content.ContentValues.TAG
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.view.*
 import android.widget.ProgressBar
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,9 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 private lateinit var errorMsg: TextView
+private lateinit var indiaText: TextView
 private lateinit var indiaLoading: ProgressBar
 private lateinit var rv : RecyclerView
 private lateinit var thisActivity : Activity
+private lateinit var adapter1 : Adapter
 
 class indiafragment : Fragment() {
 
@@ -45,17 +45,36 @@ class indiafragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         indiaLoading = view.findViewById(R.id.indiaProgressBar)
-        rv = view.findViewById<RecyclerView>(R.id.listofstatesrv)
+        rv = view.findViewById<RecyclerView>(R.id.listOfStatesInIndiaRV)
         thisActivity = activity!!
         errorMsg = view.findViewById(R.id.error_msg)
+//        indiaText = view.findViewById(R.id.india_text)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.top_menu, menu)
+        val searchItem : MenuItem = menu.findItem(R.id.searchBar)
+        val searchView : SearchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter1.filter.filter(newText)
+                return false
+            }
+
+        });
     }
 
 }
 
 private class allInfo : AsyncTask<Void, Void, Void>() {
 
-    var singleParsed: String = ""
-    var finalParsed: String = ""
+    var indiaDetails: String = ""
     var ind_api: indiaApi? = null
     var ind_call: Call<AllData>? = null
     var allData: AllData? = null
@@ -88,6 +107,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 Log.e(TAG, "ERROR : " + t.message)
                 Log.e(TAG, "ERROR : $call")
                 indiaLoading.visibility = View.GONE
+                errorMsg.visibility = View.VISIBLE
                 errorMsg.text = "No internet. Please retry."
             }
 
@@ -97,7 +117,8 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 allStates = getStates(allData, allStates)
                 indiaLoading.visibility = View.GONE
                 populateAllStatesList(allStatesList, allStates)
-                val adapter1 = Adapter(allStatesList)
+//                displayInfo(allData)
+                adapter1 = Adapter(allStatesList)
                 rv.adapter = adapter1
                 rv.layoutManager = LinearLayoutManager(thisActivity?.applicationContext)
             }
@@ -111,26 +132,16 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 }
             }
 
-//            private fun displayInfo(allData: AllData?, allStates: MutableList<RegionData>?) {
-//                finalParsed =  "India Data:" + "\n" +
-//                                "Confirmed: " + allData?.confirmed + "\n" +
-//                                "Active: " + allData?.active + "\n" +
-//                                "Deceased: " + allData?.deaths + "\n" +
-//                                "Recovered: " + allData?.recovered + "\n" +
-//                                "Last Updates: " + allData?.dateLastModified +
-//                                "\n\n" + "State Data:"
-//                for (i in 0 until allStates?.size!!) {
-//                    var stateObj = allStates?.get(i)
-//                    singleParsed = "\n" + "State: " + stateObj.state + "\n" +
-//                                    "Confirmed: " + stateObj.confirmed + "\n" +
-//                                    "Active: " + stateObj.active + "\n" +
-//                                    "Deceased: " + stateObj.deceased + "\n" +
-//                                    "Recovered: " + stateObj.recovered + "\n"
-//
-//                    finalParsed += singleParsed + "\n"
-//                }
-////                indiaText.text = finalParsed
-//            }
+            private fun displayInfo(allData: AllData?) {
+                allData?.apply { indiaDetails =  "India Data:" + "\n" +
+                        "Confirmed: " + confirmed + "\n" +
+                        "Active: " + active + "\n" +
+                        "Deceased: " + deaths + "\n" +
+                        "Recovered: " + recovered + "\n" +
+                        "Last Updates: " + dateLastModified +
+                        "\n\n" }
+                indiaText.text = indiaDetails
+            }
 
             private fun getStates(
                 allData: AllData?,
