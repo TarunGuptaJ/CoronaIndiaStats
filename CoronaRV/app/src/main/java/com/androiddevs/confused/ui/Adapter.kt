@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
-import kotlinx.android.synthetic.main.listofstatest.view.*
+import kotlinx.android.synthetic.main.list_of_states.view.*
 
 class Adapter(
     var states: MutableList<RegionData>
@@ -14,7 +14,7 @@ class Adapter(
     inner class StatesViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatesViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.listofstatest,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_of_states,parent,false)
         return StatesViewHolder(view)
     }
 

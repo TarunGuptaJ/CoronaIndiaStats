@@ -1,6 +1,7 @@
 package com.androiddevs.confused.ui.fragments
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.os.AsyncTask
 import android.os.Bundle
@@ -13,11 +14,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
-import com.androiddevs.confused.ui.Adapter
-import com.androiddevs.confused.ui.AllData
-import com.androiddevs.confused.ui.RegionData
-import com.androiddevs.confused.ui.indiaApi
+import com.androiddevs.confused.ui.*
 import kotlinx.android.synthetic.main.india_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,9 +25,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-//private lateinit var indiaText: TextView
+private lateinit var errorMsg: TextView
 private lateinit var indiaLoading: ProgressBar
-private lateinit var allStatesList : MutableList<RegionData>
+private lateinit var rv : RecyclerView
+private lateinit var thisActivity : Activity
 
 class indiafragment : Fragment() {
 
@@ -39,19 +39,15 @@ class indiafragment : Fragment() {
     ): View? {
         val root: View = inflater.inflate(R.layout.india_fragment, container, false)
         allInfo().execute()
-        val adapter1 = Adapter(allStatesList)
-        listofstatesrv.adapter = adapter1
-        listofstatesrv.layoutManager = LinearLayoutManager(context)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        indiaText = view.findViewById(R.id.india_text)
         indiaLoading = view.findViewById(R.id.indiaProgressBar)
-
-
-
+        rv = view.findViewById<RecyclerView>(R.id.listofstatesrv)
+        thisActivity = activity!!
+        errorMsg = view.findViewById(R.id.error_msg)
     }
 
 }
@@ -64,6 +60,8 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
     var ind_call: Call<AllData>? = null
     var allData: AllData? = null
     var allStates : MutableList<RegionData>? = mutableListOf()
+    var allStatesList : MutableList<RegionData> = mutableListOf()
+
 //    "https://api.covid19india.org/"
 //    "https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true"
 
@@ -90,7 +88,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 Log.e(TAG, "ERROR : " + t.message)
                 Log.e(TAG, "ERROR : $call")
                 indiaLoading.visibility = View.GONE
-//                indiaText.text = "No internet. Please retry."
+                errorMsg.text = "No internet. Please retry."
             }
 
             override fun onResponse(call: Call<AllData>, response: Response<AllData>) {
@@ -98,30 +96,41 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 allData = response.body()
                 allStates = getStates(allData, allStates)
                 indiaLoading.visibility = View.GONE
-                displayInfo(allData, allStates)
+                populateAllStatesList(allStatesList, allStates)
+                val adapter1 = Adapter(allStatesList)
+                rv.adapter = adapter1
+                rv.layoutManager = LinearLayoutManager(thisActivity?.applicationContext)
             }
 
-            private fun displayInfo(allData: AllData?, allStates: MutableList<RegionData>?) {
-                finalParsed =  "India Data:" + "\n" +
-                                "Confirmed: " + allData?.confirmed + "\n" +
-                                "Active: " + allData?.active + "\n" +
-                                "Deceased: " + allData?.deaths + "\n" +
-                                "Recovered: " + allData?.recovered + "\n" +
-                                "Last Updates: " + allData?.dateLastModified +
-                                "\n\n" + "State Data:"
+            private fun populateAllStatesList(
+                allStatesList: MutableList<RegionData>,
+                allStates: MutableList<RegionData>?
+            ) {
                 for (i in 0 until allStates?.size!!) {
-                    var stateObj = allStates?.get(i)
-                    allStatesList?.add(allStates?.get(i))
-                    singleParsed = "\n" + "State: " + stateObj.state + "\n" +
-                                    "Confirmed: " + stateObj.confirmed + "\n" +
-                                    "Active: " + stateObj.active + "\n" +
-                                    "Deceased: " + stateObj.deceased + "\n" +
-                                    "Recovered: " + stateObj.recovered + "\n"
-
-                    finalParsed += singleParsed + "\n"
+                    allStatesList.add(allStates.get(i))
                 }
-//                indiaText.text = finalParsed
             }
+
+//            private fun displayInfo(allData: AllData?, allStates: MutableList<RegionData>?) {
+//                finalParsed =  "India Data:" + "\n" +
+//                                "Confirmed: " + allData?.confirmed + "\n" +
+//                                "Active: " + allData?.active + "\n" +
+//                                "Deceased: " + allData?.deaths + "\n" +
+//                                "Recovered: " + allData?.recovered + "\n" +
+//                                "Last Updates: " + allData?.dateLastModified +
+//                                "\n\n" + "State Data:"
+//                for (i in 0 until allStates?.size!!) {
+//                    var stateObj = allStates?.get(i)
+//                    singleParsed = "\n" + "State: " + stateObj.state + "\n" +
+//                                    "Confirmed: " + stateObj.confirmed + "\n" +
+//                                    "Active: " + stateObj.active + "\n" +
+//                                    "Deceased: " + stateObj.deceased + "\n" +
+//                                    "Recovered: " + stateObj.recovered + "\n"
+//
+//                    finalParsed += singleParsed + "\n"
+//                }
+////                indiaText.text = finalParsed
+//            }
 
             private fun getStates(
                 allData: AllData?,
