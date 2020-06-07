@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
 import com.androiddevs.confused.ui.*
-import kotlinx.android.synthetic.main.india_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +27,7 @@ private lateinit var indiaText: TextView
 private lateinit var indiaLoading: ProgressBar
 private lateinit var rv : RecyclerView
 private lateinit var thisActivity : Activity
-private lateinit var adapter1 : Adapter
+private lateinit var adapter1 : IndiaAdapter
 
 class indiafragment : Fragment() {
 
@@ -49,7 +48,7 @@ class indiafragment : Fragment() {
         rv = view.findViewById<RecyclerView>(R.id.listOfStatesInIndiaRV)
         thisActivity = activity!!
         errorMsg = view.findViewById(R.id.error_msg)
-//        indiaText = view.findViewById(R.id.india_text)
+        indiaText = view.findViewById(R.id.india_text)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -120,8 +119,8 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 allStates = getStates(allData, allStates)
                 indiaLoading.visibility = View.GONE
                 populateAllStatesList(allStatesList, allStates)
-//                displayInfo(allData)
-                adapter1 = Adapter(allStatesList)
+                displayInfo(allData)
+                adapter1 = IndiaAdapter(allStatesList)
                 rv.adapter = adapter1
                 rv.layoutManager = LinearLayoutManager(thisActivity?.applicationContext)
             }
@@ -136,13 +135,13 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
             }
 
             private fun displayInfo(allData: AllData?) {
-                allData?.apply { indiaDetails =  "India Data:" + "\n" +
-                        "Confirmed: " + confirmed + "\n" +
-                        "Active: " + active + "\n" +
-                        "Deceased: " + deaths + "\n" +
-                        "Recovered: " + recovered + "\n" +
-                        "Last Updates: " + dateLastModified +
-                        "\n\n" }
+                allData?.apply {
+                    indiaDetails = "India Data:" + "\n" +
+                            "Confirmed: " + confirmed + "\n" +
+                            "Active: " + active + "\n" +
+                            "Deceased: " + deaths + "\n" +
+                            "Recovered: " + recovered + "\n\n"
+                }
                 indiaText.text = indiaDetails
             }
 
