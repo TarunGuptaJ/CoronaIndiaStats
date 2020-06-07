@@ -35,7 +35,7 @@ class StateAdapter(
     override fun onBindViewHolder(holder: DistrictsViewHolder, position: Int) {
         if (position == 0) {
             holder.itemView.apply {
-                districtStateName.text = "State with corresponding district names"
+                districtStateName.text = "State with district names"
                 districtDetails.visibility = View.GONE
             }
             return

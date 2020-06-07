@@ -140,11 +140,13 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
 
             private fun displayInfo(allData: AllData?) {
                 allData?.apply {
-                    indiaDetails = "India Data:" + "\n" +
+                    indiaDetails =
+                            "India Data" + "\n" +
                             "Confirmed: " + confirmed + " " +
                             "Active: " + active + "\n" +
                             "Deceased: " + deaths + " " +
-                            "Recovered: " + recovered 
+                            "Recovered: " + recovered
+
                 }
                 indiaText.text = indiaDetails
             }
