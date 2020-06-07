@@ -121,6 +121,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 allStates = getStates(allData, allStates)
                 indiaLoading.visibility = View.GONE
                 populateAllStatesList(allStatesList, allStates)
+//                displayInfo(allData)
                 displayInfo(allData)
                 indiaAdapter = IndiaAdapter(allStatesList)
                 rv.adapter = indiaAdapter
@@ -138,11 +139,18 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
 
             private fun displayInfo(allData: AllData?) {
                 allData?.apply {
-                    indiaDetails = "India Data:" + "\n" +
-                            "Confirmed: " + confirmed + "\n" +
+                    indiaDetails =
+                            "India Data" + "\n" +
+                            "Confirmed: " + confirmed + " " +
                             "Active: " + active + "\n" +
+<<<<<<< HEAD
                             "Deceased: " + deaths + "\n" +
                             "Recovered: " + recovered + "\n"
+=======
+                            "Deceased: " + deaths + " " +
+                            "Recovered: " + recovered
+
+>>>>>>> b6f580ac2f384e111d1e1e77b89ef1c0e954fa18
                 }
                 indiaText.text = indiaDetails
             }
