@@ -1,12 +1,14 @@
 package com.androiddevs.confused.ui
 
 import android.annotation.SuppressLint
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
 import kotlinx.android.synthetic.main.list_of_districts.view.*
@@ -34,20 +36,26 @@ class StateAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DistrictsViewHolder, position: Int) {
-        if (position == 0) {
-            holder.itemView.apply {
-                districtStateName.text = "State with district names"
-                districtDetails.visibility = View.GONE
-            }
-            return
-        }
 
+//        fun getColoredSpanned (text : String, color : String) : String {
+//            var input = "<font color=" + color + ">" + text + "</font>";
+//            return input;
+//        }
 
         var singleParsed = ""
         holder.itemView.apply {
             districtStateName.text = states[position].state
             for (j in 0 until states[position].districtData.size) {
                 states[position].districtData[j].apply {
+//                    var act = getColoredSpanned(active.toString(), "@color/red")
+//                    var conf = confirmed.toString()
+//                    var deaths = deceased.toString()
+//                    var rec = getColoredSpanned(recovered.toString(), "@color/green")
+//                    singleParsed += district.toString() + "\n" +
+//                        "Confirmed: " + conf + "\t\t" +
+//                        "Active: " + act + "\t\n" +
+//                        "Deceased: " + deaths + "\t\t" +
+//                        "Recovered: " + rec + "\n\n"
                     singleParsed += district.toString() + "\n" +
                             "Active: " + active.toString() + "\t\t" +
                             "Confirmed: " + confirmed.toString() + "\t\n" +

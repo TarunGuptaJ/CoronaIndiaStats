@@ -33,10 +33,10 @@ class IndiaAdapter(
         Log.d("STATES COPY", "states copy is : $statesCopy")
         holder.itemView.apply{
             stateName.text = states[position].state
-            confirmed.text = "" + (states[position].confirmed).toString()
-            active.text = "" + (states[position].active).toString()
-            deceased.text = "" + (states[position].deceased).toString()
-            recovered.text = "" + (states[position].recovered).toString()
+            confirmed.text = (states[position].confirmed).toString()
+            active.text = (states[position].active).toString()
+            deceased.text = (states[position].deceased).toString()
+            recovered.text = (states[position].recovered).toString()
 
         }
     }

@@ -15,15 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
 import com.androiddevs.confused.ui.*
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 private lateinit var errorMsg: TextView
-private lateinit var indiaText: TextView
+private lateinit var india_confirmed : TextView
+private lateinit var india_active : TextView
+private lateinit var india_deceased : TextView
+private lateinit var india_recovered : TextView
 private lateinit var indiaLoading: ProgressBar
 private lateinit var rv : RecyclerView
 private lateinit var thisActivity : Activity
@@ -48,7 +53,12 @@ class IndiaFragment : Fragment() {
         rv = view.findViewById<RecyclerView>(R.id.listOfStatesInIndiaRV)
         thisActivity = activity!!
         errorMsg = view.findViewById(R.id.india_error_msg)
-        indiaText = view.findViewById(R.id.india_text)
+        view.apply {
+            india_confirmed = findViewById(R.id.india_confirmed)
+            india_active = findViewById(R.id.india_confirmed)
+            india_deceased = findViewById(R.id.india_confirmed)
+            india_recovered = findViewById(R.id.india_confirmed)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -88,9 +98,17 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
 
     override fun doInBackground(vararg params: Void?): Void? {
 
+        val okHttpClient = OkHttpClient.Builder()
+            .callTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(1, TimeUnit.MINUTES)
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .build()
+
         val retrofit: Retrofit =
             Retrofit.Builder()
                 .baseUrl("https://api.apify.com/")
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -139,14 +157,11 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
 
             private fun displayInfo(allData: AllData?) {
                 allData?.apply {
-                    indiaDetails =
-                            "India Data" + "\n" +
-                            "Confirmed: " + confirmed + "\n" +
-                            "Active: " + active + "\n" +
-                            "Deceased: " + deaths + "\n" +
-                            "Recovered: " + recovered
+                    india_confirmed.text = "Confirmed: " + confirmed
+                    india_active.text = "Active: " + active
+                    india_deceased.text = "Deceased: " + deaths
+                    india_recovered.text = "Recovered: " + recovered
                 }
-                indiaText.text = indiaDetails
             }
 
             private fun getStates(
