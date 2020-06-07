@@ -33,10 +33,10 @@ class Adapter(
         Log.d("STATES COPY", "states copy is : $statesCopy")
         holder.itemView.apply{
             statename.text = states?.get(position)?.state
-            statedets.text = (states?.get(position)?.active).toString() + " " +
-                             (states?.get(position)?.confirmed).toString() + " " +
-                             (states?.get(position)?.deceased).toString() + " "+
-                             (states?.get(position)?.recovered).toString()
+            statedets.text = "Active :" + (states?.get(position)?.active).toString() + "\t" +
+                             "Confirmed :" + (states?.get(position)?.confirmed).toString() + "\t\n" +
+                             "Deceased :" + (states?.get(position)?.deceased).toString() + "\t"+
+                             "Recovered :" + (states?.get(position)?.recovered).toString()
         }
     }
 
