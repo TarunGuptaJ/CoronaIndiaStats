@@ -27,14 +27,14 @@
             android:textColor="@color/darkblack"
             android:textStyle="bold"
             android:text="@string/about_the_app"
-            android:textSize="32sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:text="@string/about_the_text"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
