@@ -1,6 +1,5 @@
 package com.androiddevs.confused.ui
 import android.annotation.SuppressLint
-import android.graphics.Region
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
 import kotlinx.android.synthetic.main.list_of_states.view.*
 
-class Adapter(
+class IndiaAdapter(
     var states: MutableList<RegionData>
-): RecyclerView.Adapter<Adapter.StatesViewHolder>(), Filterable{
+): RecyclerView.Adapter<IndiaAdapter.StatesViewHolder>(), Filterable{
 
     var statesCopy : MutableList<RegionData> = ArrayList(states)
 

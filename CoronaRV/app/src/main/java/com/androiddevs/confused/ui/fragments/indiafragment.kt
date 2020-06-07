@@ -7,7 +7,6 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import android.widget.TextView
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
 import com.androiddevs.confused.ui.*
-import kotlinx.android.synthetic.main.india_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +27,7 @@ private lateinit var indiaText: TextView
 private lateinit var indiaLoading: ProgressBar
 private lateinit var rv : RecyclerView
 private lateinit var thisActivity : Activity
-private lateinit var adapter1 : Adapter
+private lateinit var adapter1 : IndiaAdapter
 
 class indiafragment : Fragment() {
 
@@ -123,7 +121,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 indiaLoading.visibility = View.GONE
                 populateAllStatesList(allStatesList, allStates)
 //                displayInfo(allData)
-                adapter1 = Adapter(allStatesList)
+                adapter1 = IndiaAdapter(allStatesList)
                 rv.adapter = adapter1
                 rv.layoutManager = LinearLayoutManager(thisActivity?.applicationContext)
 //                rv.layoutManager = LinearLayoutManager(thisActivity,LinearLayout.VERTICAL,false)
