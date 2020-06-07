@@ -7,6 +7,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import android.widget.TextView
@@ -113,6 +114,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 errorMsg.text = "No internet. Please retry."
             }
 
+            @SuppressLint("WrongConstant")
             override fun onResponse(call: Call<AllData>, response: Response<AllData>) {
                 Log.d(TAG, "code is : " + response.code().toString())
                 allData = response.body()
@@ -123,14 +125,16 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 adapter1 = IndiaAdapter(allStatesList)
                 rv.adapter = adapter1
                 rv.layoutManager = LinearLayoutManager(thisActivity?.applicationContext)
+//                rv.layoutManager = LinearLayoutManager(thisActivity,LinearLayout.VERTICAL,false)
             }
+
 
             private fun populateAllStatesList(
                 allStatesList: MutableList<RegionData>,
                 allStates: MutableList<RegionData>?
             ) {
                 for (i in 0 until allStates?.size!!) {
-                    allStatesList.add(allStates.get(i))
+                    allStatesList.add(allStates?.get(i))
                 }
             }
 
