@@ -29,7 +29,7 @@ private lateinit var rv : RecyclerView
 private lateinit var thisActivity : Activity
 private lateinit var indiaAdapter : IndiaAdapter
 
-class indiafragment : Fragment() {
+class IndiaFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +53,7 @@ class indiafragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.top_menu, menu)
+        inflater.inflate(R.menu.india_top_menu, menu)
 
         val searchItem : MenuItem = menu.findItem(R.id.searchBar)
         val searchView : SearchView = searchItem.actionView as SearchView

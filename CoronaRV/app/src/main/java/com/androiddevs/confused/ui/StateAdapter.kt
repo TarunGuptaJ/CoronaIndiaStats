@@ -13,9 +13,11 @@ import kotlinx.android.synthetic.main.list_of_districts.view.*
 import kotlinx.android.synthetic.main.list_of_states.view.*
 
 class StateAdapter(
-    var states : List<State>,
+    var states : MutableList<State>,
     var districts : MutableList<List<DistrictData>>
-): RecyclerView.Adapter<StateAdapter.DistrictsViewHolder>() {
+): RecyclerView.Adapter<StateAdapter.DistrictsViewHolder>(), Filterable {
+
+    var statesCopy : MutableList<State> = ArrayList(states)
 
     inner class DistrictsViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
 
@@ -33,6 +35,7 @@ class StateAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DistrictsViewHolder, position: Int) {
+<<<<<<< HEAD
         if (position == 0) {
             holder.itemView.apply {
                 districtStateName.text = "State with district names"
@@ -40,11 +43,14 @@ class StateAdapter(
             }
             return
         }
+=======
+
+>>>>>>> 3b7257ae0179ad4a79ad7db6428ac43c2602339c
         var singleParsed = ""
         holder.itemView.apply {
             districtStateName.text = states[position].state
-            for (j in 0 until districts[position].size) {
-                districts[position][j].apply {
+            for (j in 0 until states[position].districtData.size) {
+                states[position].districtData[j].apply {
                     singleParsed += district.toString() + "\n" +
                             "Active: " + active.toString() + "\t\t" +
                             "Confirmed: " + confirmed.toString() + "\t\n" +
@@ -56,8 +62,35 @@ class StateAdapter(
         }
     }
 
-//    override fun getFilter(): Filter {
-//        TODO("Not yet implemented")
-//    }
+    private var stateFilter = object : Filter () {
+        override fun performFiltering(constraint: CharSequence?): FilterResults? {
 
+            val charSearch = constraint.toString().toLowerCase().trim()
+            var filteredList: MutableList<State> = ArrayList<State>()
+
+            if (charSearch.isEmpty()) {
+                filteredList.addAll(statesCopy)
+            } else {
+                for (item in statesCopy) {
+                    if (item.state.toLowerCase().trim().contains(charSearch)) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+
+            val results: FilterResults = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            states.clear()
+            states.addAll(results?.values as List<State>)
+            notifyDataSetChanged()
+        }
+    };
+
+        override fun getFilter(): Filter {
+            return stateFilter
+        }
 }

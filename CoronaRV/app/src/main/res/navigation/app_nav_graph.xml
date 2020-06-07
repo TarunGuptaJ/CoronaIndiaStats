@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/indiafragment"
-        android:name="com.androiddevs.confused.ui.fragments.indiafragment"
+        android:name="com.androiddevs.confused.ui.fragments.IndiaFragment"
         android:label="indiafragment" >
         <action
             app:enterAnim="@anim/slide_in_right"
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/statefragment"
-        android:name="com.androiddevs.confused.ui.fragments.statefragment"
+        android:name="com.androiddevs.confused.ui.fragments.StateFragment"
         android:label="statefragment" />
     <fragment
         android:id="@+id/informfragment"

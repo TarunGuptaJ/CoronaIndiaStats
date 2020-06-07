@@ -1,4 +1,5 @@
 package com.androiddevs.confused.ui
+
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,8 +40,12 @@ class IndiaAdapter(
         }
     }
 
+<<<<<<< HEAD
     var stateFilter : Filter = object : Filter() {
         @SuppressLint("DefaultLocale")
+=======
+    private var stateFilter = object : Filter() {
+>>>>>>> 3b7257ae0179ad4a79ad7db6428ac43c2602339c
         override fun performFiltering(constraint: CharSequence?): FilterResults {
 
             val charSearch = constraint.toString().toLowerCase().trim()
