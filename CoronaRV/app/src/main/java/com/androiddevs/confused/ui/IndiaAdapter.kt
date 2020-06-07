@@ -33,19 +33,15 @@ class IndiaAdapter(
         Log.d("STATES COPY", "states copy is : $statesCopy")
         holder.itemView.apply{
             stateName.text = states[position].state
-            stateDetails.text = "Confirmed :" + (states[position].confirmed).toString() + "\t" +
-                                "Active :" + (states[position].active).toString() + "\t\n" +
-                                "Deceased :" + (states[position].deceased).toString() + "\t"+
+            stateDetails.text = "Confirmed :" + (states[position].confirmed).toString() + "\n" +
+                                "Active :" + (states[position].active).toString() + "  " +
+                                "Deceased :" + (states[position].deceased).toString() + "  "+
                                 "Recovered :" + (states[position].recovered).toString()
         }
     }
 
-<<<<<<< HEAD
-    var stateFilter : Filter = object : Filter() {
-        @SuppressLint("DefaultLocale")
-=======
     private var stateFilter = object : Filter() {
->>>>>>> 3b7257ae0179ad4a79ad7db6428ac43c2602339c
+        @SuppressLint("DefaultLocale")
         override fun performFiltering(constraint: CharSequence?): FilterResults {
 
             val charSearch = constraint.toString().toLowerCase().trim()

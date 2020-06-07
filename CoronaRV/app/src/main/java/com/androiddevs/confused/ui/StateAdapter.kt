@@ -35,7 +35,7 @@ class StateAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DistrictsViewHolder, position: Int) {
-<<<<<<< HEAD
+
         if (position == 0) {
             holder.itemView.apply {
                 districtStateName.text = "State with district names"
@@ -43,9 +43,7 @@ class StateAdapter(
             }
             return
         }
-=======
 
->>>>>>> 3b7257ae0179ad4a79ad7db6428ac43c2602339c
         var singleParsed = ""
         holder.itemView.apply {
             districtStateName.text = states[position].state

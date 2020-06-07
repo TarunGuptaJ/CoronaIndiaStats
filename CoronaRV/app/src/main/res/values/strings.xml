@@ -7,8 +7,10 @@
     <string name="information_fragment">Information Fragment</string>
     <string name="visualizations">Visualizations</string>
     <string name="india_fragment">India Fragment</string>
-    <string name="information">Information</string>
     <string name="name">name</string>
     <string name="numbers">numbers</string>
-    <string name="about_me">About Us</string>
+    <string name="about_me">About</string>
+    <string name="search">Search</string>
+    <string name="information">Information</string>
+    <string name="about_the_app">About the App</string>
 </resources>

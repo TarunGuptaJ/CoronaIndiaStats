@@ -142,9 +142,9 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 allData?.apply {
                     indiaDetails =
                             "India Data" + "\n" +
-                            "Confirmed: " + confirmed + " " +
+                            "Confirmed: " + confirmed + "\n" +
                             "Active: " + active + "\n" +
-                            "Deceased: " + deaths + " " +
+                            "Deceased: " + deaths + "\n" +
                             "Recovered: " + recovered
 
                 }
