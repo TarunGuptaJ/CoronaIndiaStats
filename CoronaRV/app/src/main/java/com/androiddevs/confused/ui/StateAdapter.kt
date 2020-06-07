@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.list_of_districts.view.*
 import kotlinx.android.synthetic.main.list_of_states.view.*
 
 class StateAdapter(
-    var states : MutableList<State>,
-    var districts : MutableList<List<DistrictData>>
+    var states : MutableList<State>
 ): RecyclerView.Adapter<StateAdapter.DistrictsViewHolder>(), Filterable {
 
     var statesCopy : MutableList<State> = ArrayList(states)
@@ -35,17 +34,7 @@ class StateAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DistrictsViewHolder, position: Int) {
-<<<<<<< HEAD
-        if (position == 0) {
-            holder.itemView.apply {
-                districtStateName.text = "State with district names"
-                districtDetails.visibility = View.GONE
-            }
-            return
-        }
-=======
 
->>>>>>> 3b7257ae0179ad4a79ad7db6428ac43c2602339c
         var singleParsed = ""
         holder.itemView.apply {
             districtStateName.text = states[position].state

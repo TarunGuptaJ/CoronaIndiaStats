@@ -108,7 +108,7 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
             override fun onFailure(call: Call<List<State>>, t: Throwable) {
                 Log.e(TAG, "ERROR : " + t.message)
                 stateLoading.visibility = View.GONE
-                stateAdapter = StateAdapter(mutableListOf(), mutableListOf())
+                stateAdapter = StateAdapter(mutableListOf())
                 errorMsg.visibility = View.VISIBLE
                 errorMsg.text = "No internet. Please retry."
             }
@@ -120,7 +120,7 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
                 Log.d(TAG, "districts is : $districts")
                 Log.d(TAG, "states is : $allStates")
                 stateLoading.visibility = View.GONE
-                stateAdapter = StateAdapter(allStates!! as MutableList<State>, districts!!)
+                stateAdapter = StateAdapter(allStates!! as MutableList<State>)
                 rv.adapter = stateAdapter
                 rv.layoutManager = LinearLayoutManager(thisActivity.applicationContext)
 //                displayInfo(allStates, districts)

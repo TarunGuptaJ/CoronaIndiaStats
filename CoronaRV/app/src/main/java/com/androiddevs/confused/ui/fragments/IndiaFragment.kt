@@ -143,14 +143,8 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                             "India Data" + "\n" +
                             "Confirmed: " + confirmed + " " +
                             "Active: " + active + "\n" +
-<<<<<<< HEAD
                             "Deceased: " + deaths + "\n" +
                             "Recovered: " + recovered + "\n"
-=======
-                            "Deceased: " + deaths + " " +
-                            "Recovered: " + recovered
-
->>>>>>> b6f580ac2f384e111d1e1e77b89ef1c0e954fa18
                 }
                 indiaText.text = indiaDetails
             }
