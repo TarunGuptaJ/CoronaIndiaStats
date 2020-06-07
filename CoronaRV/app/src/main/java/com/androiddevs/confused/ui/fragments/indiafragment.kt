@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +38,7 @@ class indiafragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root: View = inflater.inflate(R.layout.india_fragment, container, false)
+        setHasOptionsMenu(true)
         allInfo().execute()
         return root
     }
@@ -53,16 +54,18 @@ class indiafragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
         inflater.inflate(R.menu.top_menu, menu)
+
         val searchItem : MenuItem = menu.findItem(R.id.searchBar)
         val searchView : SearchView = searchItem.actionView as SearchView
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("HERE", "we are here")
                 adapter1.filter.filter(newText)
                 return false
             }
