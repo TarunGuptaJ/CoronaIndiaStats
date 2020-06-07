@@ -6,11 +6,10 @@ import android.content.ContentValues.TAG
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,9 +25,9 @@ import java.util.concurrent.TimeUnit
 private lateinit var stateLoading: ProgressBar
 private lateinit var rv : RecyclerView
 private lateinit var thisActivity: Activity
-private lateinit var stateAdapter: StateAdapter
+private var stateAdapter: StateAdapter? = null
 
-class statefragment : Fragment() {
+class StateFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +36,7 @@ class statefragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.state_fragment, container, false)
         stateInfo().execute()
+        setHasOptionsMenu(true)
         return root
     }
 
@@ -46,6 +46,27 @@ class statefragment : Fragment() {
         rv = view.findViewById<RecyclerView>(R.id.listOfDistrictsInStatesRV)
         thisActivity = activity!!
 //        errorMsg = view.findViewById(R.id.error_msg)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.india_top_menu, menu)
+
+        val searchItem : MenuItem = menu.findItem(R.id.searchBar)
+        val searchView : SearchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("HERE", "we are here")
+                stateAdapter?.filter?.filter(newText)
+                return false
+            }
+
+        });
     }
 }
 
@@ -60,11 +81,20 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
 
     override fun doInBackground(vararg params: Void?): Void? {
 
+        val okHttpClient = OkHttpClient.Builder()
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(1, TimeUnit.MINUTES)
+            .callTimeout(1, TimeUnit.MINUTES)
+            .build()
+
         val retrofit: Retrofit =
             Retrofit.Builder()
                 .baseUrl("https://api.covid19india.org/")
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+
         api = retrofit.create(stateApi::class.java)
         call = api?.getState()
 
@@ -89,7 +119,7 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
                 Log.d(TAG, "districts is : $districts")
                 Log.d(TAG, "states is : $allStates")
                 stateLoading.visibility = View.GONE
-                stateAdapter = StateAdapter(allStates!!, districts!!)
+                stateAdapter = StateAdapter(allStates!! as MutableList<State>, districts!!)
                 rv.adapter = stateAdapter
                 rv.layoutManager = LinearLayoutManager(thisActivity.applicationContext)
 //                displayInfo(allStates, districts)

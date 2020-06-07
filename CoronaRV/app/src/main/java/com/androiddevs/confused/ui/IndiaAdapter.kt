@@ -1,4 +1,5 @@
 package com.androiddevs.confused.ui
+
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ class IndiaAdapter(
         }
     }
 
-    var stateFilter : Filter = object : Filter() {
+    private var stateFilter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
 
             val charSearch = constraint.toString().toLowerCase().trim()
