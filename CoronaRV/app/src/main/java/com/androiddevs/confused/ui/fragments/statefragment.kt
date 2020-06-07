@@ -1,6 +1,7 @@
 package com.androiddevs.confused.ui.fragments
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.os.AsyncTask
 import android.os.Bundle
@@ -11,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.confused.R
 import com.androiddevs.confused.ui.*
 import okhttp3.OkHttpClient
@@ -19,8 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-private lateinit var stateText: TextView
+//private lateinit var stateText: TextView
 private lateinit var stateLoading: ProgressBar
+private lateinit var rv : RecyclerView
+private lateinit var thisActivity: Activity
+private lateinit var stateAdapter: StateAdapter
 
 class statefragment : Fragment() {
 
@@ -35,8 +41,11 @@ class statefragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        stateText = view.findViewById(R.id.state_text)
+//        stateText = view.findViewById(R.id.state_text)
         stateLoading = view.findViewById(R.id.stateProgressBar)
+        rv = view.findViewById<RecyclerView>(R.id.listOfDistrictsInStatesRV)
+        thisActivity = activity!!
+//        errorMsg = view.findViewById(R.id.error_msg)
     }
 }
 
@@ -70,7 +79,7 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
             override fun onFailure(call: Call<List<State>>, t: Throwable) {
                 Log.e(TAG, "ERROR : " + t.message)
                 stateLoading.visibility = View.GONE
-                stateText.text = "No internet. Please retry."
+//                stateText.text = "No internet. Please retry."
             }
 
             override fun onResponse(call: Call<List<State>>, response: Response<List<State>>) {
@@ -80,7 +89,10 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
                 Log.d(TAG, "districts is : $districts")
                 Log.d(TAG, "states is : $allStates")
                 stateLoading.visibility = View.GONE
-                displayInfo(allStates, districts)
+                stateAdapter = StateAdapter(allStates!!, districts!!)
+                rv.adapter = stateAdapter
+                rv.layoutManager = LinearLayoutManager(thisActivity.applicationContext)
+//                displayInfo(allStates, districts)
             }
 
             private fun displayInfo(
@@ -98,7 +110,7 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
                     }
                     finalParsed += singleParsed + "\n"
                 }
-                stateText.text = finalParsed
+//                stateText.text = finalParsed
             }
 
             private fun getDistrictData(

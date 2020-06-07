@@ -7,7 +7,6 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import android.widget.TextView
@@ -28,7 +27,7 @@ private lateinit var indiaText: TextView
 private lateinit var indiaLoading: ProgressBar
 private lateinit var rv : RecyclerView
 private lateinit var thisActivity : Activity
-private lateinit var adapter1 : IndiaAdapter
+private lateinit var indiaAdapter : IndiaAdapter
 
 class indiafragment : Fragment() {
 
@@ -66,7 +65,7 @@ class indiafragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 Log.d("HERE", "we are here")
-                adapter1.filter.filter(newText)
+                indiaAdapter.filter.filter(newText)
                 return false
             }
 
@@ -122,9 +121,9 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 indiaLoading.visibility = View.GONE
                 populateAllStatesList(allStatesList, allStates)
                 displayInfo(allData)
-                adapter1 = IndiaAdapter(allStatesList)
-                rv.adapter = adapter1
-                rv.layoutManager = LinearLayoutManager(thisActivity?.applicationContext)
+                indiaAdapter = IndiaAdapter(allStatesList)
+                rv.adapter = indiaAdapter
+                rv.layoutManager = LinearLayoutManager(thisActivity.applicationContext)
 //                rv.layoutManager = LinearLayoutManager(thisActivity,LinearLayout.VERTICAL,false)
             }
 
@@ -133,9 +132,9 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 allStatesList: MutableList<RegionData>,
                 allStates: MutableList<RegionData>?
             ) {
-                for (i in 0 until allStates?.size!!) {
-                    allStatesList.add(allStates?.get(i))
-                }
+//                for (i in 0 until allStates?.size!!) {
+                    allStatesList.addAll(allStates!!)
+//                }
             }
 
             private fun displayInfo(allData: AllData?) {

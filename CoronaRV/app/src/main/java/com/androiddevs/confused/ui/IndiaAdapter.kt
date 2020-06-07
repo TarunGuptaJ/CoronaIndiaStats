@@ -24,18 +24,18 @@ class IndiaAdapter(
     }
 
     override fun getItemCount(): Int {
-        return states?.size!!
+        return states.size
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StatesViewHolder, position: Int) {
         Log.d("STATES COPY", "states copy is : $statesCopy")
         holder.itemView.apply{
-            statename.text = states?.get(position)?.state
-            statedets.text = "Active :" + (states?.get(position)?.active).toString() + "\t" +
-                             "Confirmed :" + (states?.get(position)?.confirmed).toString() + "\t\n" +
-                             "Deceased :" + (states?.get(position)?.deceased).toString() + "\t"+
-                             "Recovered :" + (states?.get(position)?.recovered).toString()
+            stateName.text = states[position].state
+            stateDetails.text = "Active :" + (states[position].active).toString() + "\t" +
+                             "Confirmed :" + (states[position].confirmed).toString() + "\t\n" +
+                             "Deceased :" + (states[position].deceased).toString() + "\t"+
+                             "Recovered :" + (states[position].recovered).toString()
         }
     }
 
