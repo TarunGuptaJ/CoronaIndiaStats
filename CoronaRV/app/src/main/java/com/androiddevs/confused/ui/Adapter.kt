@@ -1,5 +1,7 @@
 package com.androiddevs.confused.ui
 import android.annotation.SuppressLint
+import android.graphics.Region
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +15,7 @@ class Adapter(
     var states: MutableList<RegionData>
 ): RecyclerView.Adapter<Adapter.StatesViewHolder>(), Filterable{
 
-    var statesCopy = states
+    var statesCopy : MutableList<RegionData> = ArrayList(states)
 
     inner class StatesViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
 
@@ -28,6 +30,7 @@ class Adapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StatesViewHolder, position: Int) {
+        Log.d("STATES COPY", "states copy is : $statesCopy")
         holder.itemView.apply{
             statename.text = states?.get(position)?.state
             statedets.text = (states?.get(position)?.active).toString() + " " +
@@ -37,14 +40,12 @@ class Adapter(
         }
     }
 
-    override fun getFilter(): Filter {
-        return stateFilter
-    }
-
-    var stateFilter = object : Filter() {
+    var stateFilter : Filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
+
             val charSearch = constraint.toString().toLowerCase().trim()
-            var filteredList = ArrayList<RegionData>()
+            var filteredList :MutableList<RegionData> = ArrayList<RegionData>()
+
             if (charSearch.isEmpty()) {
                 filteredList.addAll(statesCopy)
             } else {
@@ -55,6 +56,7 @@ class Adapter(
                 }
             }
 
+            Log.d("FILTERED LIST", "filtered list is : $filteredList")
             val results : FilterResults = FilterResults()
             results.values = filteredList
             return results
@@ -62,10 +64,14 @@ class Adapter(
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             states.clear()
-            states.addAll(results?.values as ArrayList<RegionData>)
+            states.addAll(results?.values as MutableList<RegionData>)
             notifyDataSetChanged()
         }
 
     };
+
+    override fun getFilter(): Filter {
+        return stateFilter
+    }
 
 }
