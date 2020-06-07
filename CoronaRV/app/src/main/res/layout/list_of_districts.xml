@@ -24,7 +24,7 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/stateName"
+                android:id="@+id/districtStateName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/stateDetails"
+                android:id="@+id/districtDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/numbers"
