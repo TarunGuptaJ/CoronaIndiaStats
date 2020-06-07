@@ -47,7 +47,7 @@ class IndiaFragment : Fragment() {
         indiaLoading = view.findViewById(R.id.indiaProgressBar)
         rv = view.findViewById<RecyclerView>(R.id.listOfStatesInIndiaRV)
         thisActivity = activity!!
-        errorMsg = view.findViewById(R.id.error_msg)
+        errorMsg = view.findViewById(R.id.india_error_msg)
         indiaText = view.findViewById(R.id.india_text)
     }
 
@@ -109,6 +109,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 Log.e(TAG, "ERROR : " + t.message)
                 Log.e(TAG, "ERROR : $call")
                 indiaLoading.visibility = View.GONE
+                indiaAdapter = IndiaAdapter(mutableListOf())
                 errorMsg.visibility = View.VISIBLE
                 errorMsg.text = "No internet. Please retry."
             }
@@ -133,9 +134,7 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                 allStatesList: MutableList<RegionData>,
                 allStates: MutableList<RegionData>?
             ) {
-//                for (i in 0 until allStates?.size!!) {
                     allStatesList.addAll(allStates!!)
-//                }
             }
 
             private fun displayInfo(allData: AllData?) {
@@ -145,8 +144,12 @@ private class allInfo : AsyncTask<Void, Void, Void>() {
                             "Confirmed: " + confirmed + "\n" +
                             "Active: " + active + "\n" +
                             "Deceased: " + deaths + "\n" +
+<<<<<<< HEAD
                             "Recovered: " + recovered
 
+=======
+                            "Recovered: " + recovered + "\n"
+>>>>>>> 69443563b10e441eb229920b92ae11383a35431b
                 }
                 indiaText.text = indiaDetails
             }

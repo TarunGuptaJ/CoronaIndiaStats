@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-//private lateinit var stateText: TextView
+private lateinit var errorMsg: TextView
 private lateinit var stateLoading: ProgressBar
 private lateinit var rv : RecyclerView
 private lateinit var thisActivity: Activity
@@ -41,11 +41,10 @@ class StateFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        stateText = view.findViewById(R.id.state_text)
         stateLoading = view.findViewById(R.id.stateProgressBar)
         rv = view.findViewById<RecyclerView>(R.id.listOfDistrictsInStatesRV)
         thisActivity = activity!!
-//        errorMsg = view.findViewById(R.id.error_msg)
+        errorMsg = view.findViewById(R.id.state_error_msg)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -109,7 +108,9 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
             override fun onFailure(call: Call<List<State>>, t: Throwable) {
                 Log.e(TAG, "ERROR : " + t.message)
                 stateLoading.visibility = View.GONE
-//                stateText.text = "No internet. Please retry."
+                stateAdapter = StateAdapter(mutableListOf())
+                errorMsg.visibility = View.VISIBLE
+                errorMsg.text = "No internet. Please retry."
             }
 
             override fun onResponse(call: Call<List<State>>, response: Response<List<State>>) {
@@ -119,7 +120,7 @@ private class stateInfo : AsyncTask<Void, Void, Void>() {
                 Log.d(TAG, "districts is : $districts")
                 Log.d(TAG, "states is : $allStates")
                 stateLoading.visibility = View.GONE
-                stateAdapter = StateAdapter(allStates!! as MutableList<State>, districts!!)
+                stateAdapter = StateAdapter(allStates!! as MutableList<State>)
                 rv.adapter = stateAdapter
                 rv.layoutManager = LinearLayoutManager(thisActivity.applicationContext)
 //                displayInfo(allStates, districts)
