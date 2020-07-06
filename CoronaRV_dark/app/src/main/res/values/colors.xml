@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="red">#E63838</color>
+    <color name="green">#3DBD3D</color>
+    <color name="blue">#66AEED</color>
+    <color name="blueback">#161625</color>
+    <color name="fullappcolor">#F3D955</color>
+    <color name="cardback">#1e1e31</color>
+    <color name="darkgrey">#5d646e</color>
+
+    <color name="backred">#321327</color>
+    <color name="backblue">#181d33</color>
+    <color name="backgreen">#1b2828</color>
+    <color name="backgrey">#1c1c2b</color>
+
+
+
+</resources>
