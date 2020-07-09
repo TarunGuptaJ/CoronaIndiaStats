@@ -4,6 +4,24 @@ Capturing minimalistic information related to India's COVID-19 Situation
 ---
 
 ## APP
+### Light Mode
+<div style="overflow-x:auto;">
+    <table>
+    <tr>
+        <td>First Page</td>
+        <td>Second Page</td>
+        <td>Search</td>
+    </tr>
+    <tr>
+        <td><img src="Images/light_1.jpg" width=394 height=550></td>
+        <td><img src="Images/light_2.jpg" width=394 height=550></td>
+        <td><img src="Images/light_3.jpg" width=394 height=550></td>
+    </tr>
+    </table>
+</div>
+
+---
+
 ### Dark Mode
 <div style="overflow-x:auto;">
     <table>
@@ -19,6 +37,7 @@ Capturing minimalistic information related to India's COVID-19 Situation
     </tr>
     </table>
 </div>
+
 ---
 
 ## APIs  
