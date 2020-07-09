@@ -11,15 +11,11 @@ Capturing minimalistic information related to India's COVID-19 Situation
         <td>First Page</td>
         <td>Second Page</td>
         <td>Search</td>
-        <td>Search</td>
-        <td>About</td>
     </tr>
     <tr>
         <td><img src="Images/1.jpg" width=394 height=550></td>
         <td><img src="Images/2.jpg" width=394 height=550></td>
         <td><img src="Images/3.jpg" width=394 height=550></td>
-        <td><img src="Images/4.jpg" width=394 height=550></td>
-        <td><img src="Images/5.jpg" width=394 height=550></td>
     </tr>
     </table>
 </div>
