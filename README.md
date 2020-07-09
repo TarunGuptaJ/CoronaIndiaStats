@@ -1,5 +1,7 @@
-# KotlinProject
+# Corona India Statistics
 Capturing minimalistic information related to India's COVID-19 Situation 
+
+---
 
 ## APP
 ### Dark Mode
@@ -12,18 +14,22 @@ Capturing minimalistic information related to India's COVID-19 Situation
     <td>About</td>
   </tr>
   <tr>
-    <td><img src="Images/1" width=270 height=480></td>
-    <td><img src="Images/2" width=270 height=480></td>
-    <td><img src="Images/3" width=270 height=480></td>
-    <td><img src="Images/4" width=270 height=480></td>
-    <td><img src="Images/5" width=270 height=480></td>
+    <td><img src="Images/1.jpg" width=270 height=480></td>
+    <td><img src="Images/2.jpg" width=270 height=480></td>
+    <td><img src="Images/3.jpg" width=270 height=480></td>
+    <td><img src="Images/4.jpg" width=270 height=480></td>
+    <td><img src="Images/5.jpg" width=270 height=480></td>
   </tr>
 </table>
 
-
+---
 
 ## APIs  
 The statistics that are displayed in the app are taken from this [api](https://api.covid19india.org/data.json)  
 
+---
+
 ## General Outcome  
 Understanding concepts of kotlin
+
+---
