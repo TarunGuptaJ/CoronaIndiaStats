@@ -1,6 +1,7 @@
 # KotlinProject
 Capturing minimalistic information related to India's COVID-19 Situation 
 
+<<<<<<< HEAD
 ## APP
 ### Dark Mode
 <table>
@@ -22,6 +23,8 @@ Capturing minimalistic information related to India's COVID-19 Situation
 
 
 
+=======
+>>>>>>> 5f5934bb9cfa42d1bba6f6a9ae20f32c4a314794
 ## APIs  
 The statistics that are displayed in the app are taken from this [api](https://api.covid19india.org/data.json)  
 
