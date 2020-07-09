@@ -12,9 +12,9 @@ Capturing minimalistic information related to India's COVID-19 Situation
     <td>Search</td>
   </tr>
   <tr>
-    <td><img src="Images/1.jpg" width=394 height=854></td>
-    <td><img src="Images/2.jpg" width=394 height=854></td>
-    <td><img src="Images/3.jpg" width=394 height=854></td>
+    <td><img src="Images/1.jpg" width=394 height=500></td>
+    <td><img src="Images/2.jpg" width=394 height=500></td>
+    <td><img src="Images/3.jpg" width=394 height=500></td>
   </tr>
 </table>
 
